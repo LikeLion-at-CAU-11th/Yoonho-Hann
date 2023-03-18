@@ -10,10 +10,10 @@
 
 ### 👀 I'm ...
 
- 🌟23 years old </br>
- 🌟 majoring in **Computer Science & Engineering** at Chung-Ang Univ. (2021 ~ )</br>
- 🌟**LikeLion at CAU** 11th</br>
- 🌟**COMP** 36th</br>
+ 🌟 23 years old </br>
+ 🌟 majoring in **Computer Science & Engineering** at Chung-Ang Univ. (2021 ~ )</br>
+ 🌟 **LikeLion at CAU** 11th</br>
+ 🌟 **COMP** 36th</br>
 
 ### 🤸 I like ...
 
