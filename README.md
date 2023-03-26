@@ -37,10 +37,8 @@
 <img src="https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=GitHub&logoColor=white"></a>
 </div>
 
-### 🌱 I’m going to study ...
-<div align=center>
-<img src="https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=Python&logoColor=white"></a>
-<img src="https://img.shields.io/badge/Django-092E20?style=for-the-badge&logo=Django&logoColor=white"></a>
-<img src="https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=Docker&logoColor=white"></a>
-<img src="https://img.shields.io/badge/Amazon ECS-FF9900?style=for-the-badge&logo=Amazon ECS&logoColor=white"></a>
-</div>
+### Week 3
+⚽️ 스탠다드<br/>
+<img src="./week3/TC_standard.png"></a><br/>
+⚾️ 챌린지<br/>
+<img src="./week3/TC_challenge.png"></a><br/>
