@@ -38,7 +38,7 @@
 </div>
 
 ### Week 3
-⚽️ 스탠다드<br/>
-<img src="./week3/TC_standard.png"></a><br/>
-⚾️ 챌린지<br/>
-<img src="./week3/TC_challenge.png"></a><br/>
+⚽️ 스탠다드<br/><br/>
+<img src="./week3/TC_standard.png" height=500></a><br/>
+⚾️ 챌린지<br/><br/>
+<img src="./week3/TC_challenge.png" height=500></a><br/>
