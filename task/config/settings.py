@@ -57,6 +57,7 @@ DJANGO_APPS = [
 
 PROJECT_APPS = [
     'posts',
+    'accounts',
 ]
 
 THIRD_PARTY_APPS = [
@@ -64,6 +65,8 @@ THIRD_PARTY_APPS = [
 ]
 
 INSTALLED_APPS = DJANGO_APPS + PROJECT_APPS + THIRD_PARTY_APPS
+
+AUTH_USER_MODEL = 'accounts.Member' # AbstractUser 상속 받아서 쓰겠다고 명시
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
