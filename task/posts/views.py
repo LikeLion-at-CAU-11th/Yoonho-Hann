@@ -2,7 +2,9 @@ from django.shortcuts import render
 from django.shortcuts import get_object_or_404
 from django.http import JsonResponse 
 from django.views.decorators.http import require_http_methods
-from .models import Post
+
+from .models import Post, Comment
+import json
 
 # from django.http import HttpResponse
 
@@ -34,37 +36,154 @@ def introduction(request):
             }],
         })
     
-@require_http_methods(["GET"])
-def get_post_detail(request, id):
-    post = get_object_or_404(Post, pk = id)
-    category_json = {
-        "id" : post.post_id,
-        "writer" : post.writer,
-        "content" : post.content,
-        "category" : post.category,
-    }
+@require_http_methods(["GET", "PATCH", "DELETE"])
+def post_detail(request, id):
+    if request.method == "GET":
+        post = get_object_or_404(Post, pk = id)
+        category_json = {
+            "id" : post.post_id,
+            "writer" : post.writer,
+            "content" : post.content,
+            "category" : post.category,
+        }
 
-    return JsonResponse({
-        'status' : 200,
-        'message' : '게시글 조회 성공',
-        'data' : category_json
-    })
+        return JsonResponse({
+            'status' : 200,
+            'message' : '게시글 조회 성공',
+            'data' : category_json
+        })
+    
+    elif request.method == "PATCH":
+        body = json.loads(request.body.decode('utf-8'))
+        update_post = get_object_or_404(Post, pk = id)
+
+        update_post.content = body['content']
+        update_post.category = body['category']
+        update_post.save()      # 변동사항 DB에 저장 - ORM 제공됨
+
+        update_post_json = {
+            "id": update_post.post_id,
+            "writer": update_post.writer,
+            "content": update_post.content,
+            "category": update_post.category
+        }
+
+        return JsonResponse({
+            'status': 200,
+            'message': '게시글 수정 성공',
+            'data': update_post_json
+        })
+    
+    elif request.method == "DELETE":
+        delete_post = get_object_or_404(Post, pk = id)
+        delete_post.delete()
+
+        return JsonResponse({
+            'status': 200,
+            'message': '게시글 삭제 성공',
+            'data': None
+        })
 
 @require_http_methods(["GET"])
-def get_all_post(request):
-    results = []
+def get_post_all(request):
+    post_json_all = []
     post_list = Post.objects.all()
 
-    for i in post_list:
-        results.append({
-            "id" : i.post_id,
-            "writer" : i.writer,
-            "content" : i.content,
-            "category" : i.category,
+    for post in post_list:
+        post_json_all.append({
+            "id" : post.post_id,
+            "writer" : post.writer,
+            "content" : post.content,
+            "category" : post.category,
         })
 
     return JsonResponse({
         'status' : 200,
         'message' : '전체 게시글 조회 성공',
-        'data' : results
+        'data' : post_json_all
+    })
+
+@require_http_methods(["GET"])                              # 4주차 챌린지 미션 
+                                                            # RuntimeWarning 발생 -> USE_TZ = False로 해결 ?
+def get_post_time(request):
+    post_json_all = []
+    post_list = Post.objects.filter(created_at__range=('2023-04-05 22:00:00', '2023-04-12 19:00:00'))
+
+    for post in post_list:
+        post_json_all.append({
+            "id" : post.post_id,
+            "writer" : post.writer,
+            "content" : post.content,
+            "category" : post.category,
+        })
+
+    return JsonResponse({
+        'status' : 200,
+        'message' : '챌린지 미션 조회 성공',
+        'data' : post_json_all
+    })
+
+
+@require_http_methods(["POST"])
+def create_post(request):
+    body = json.loads(request.body.decode('utf-8'))
+
+    new_post = Post.objects.create(
+        writer = body['writer'],
+        content = body['content'],
+        category = body['category']
+    )
+
+    new_post_json = {
+        "id": new_post.post_id,
+        "writer": new_post.writer,
+        "content": new_post.content,
+        "category": new_post.category
+    }
+
+    return JsonResponse({
+        'status': 200,
+        'message': '게시글 생성 성공',
+        'data': new_post_json
+    })
+
+@require_http_methods(["GET"])
+def get_comment(request, id):
+    comment_all = Comment.objects.filter(post = id)
+    comment_json_list = []
+
+    for comment in comment_all:
+        comment_json_list.append({
+            'writer': comment.writer,
+            'content': comment.content
+        })
+    
+    return JsonResponse({
+        'status': 200,
+        'message': "댓글 조회 성공",
+        'data': comment_json_list
+    })
+
+@require_http_methods(["POST"])
+def create_comment(request):                                # 4주차 스탠다드 - 댓글 작성 API
+    body = json.loads(request.body.decode('utf-8'))
+
+    comment_post = Post.objects.get(post_id = body["id"])
+
+    new_comment = Comment.objects.create(
+        writer = body['writer'],
+        content = body['content'],
+        post = comment_post
+    )
+
+    new_post_json = {
+        "writer": new_comment.writer,
+        "content": new_comment.content,
+        "post": body['id']
+    }
+
+    return JsonResponse({
+        'status': 200,
+        'message': '댓글 생성 성공',
+        'data': new_post_json
     })
