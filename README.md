@@ -56,3 +56,8 @@
 <img src="./task/week5_TC_standard.png" height=500></a><br/><br/>
 ⚾️ 챌린지<br/>
 <img src="./task/week5_TC_challenge.png" height=500></a><br/><br/>
+
+
+### Week 6
+⚽️ 스탠다드<br/>
+http://likelion-11th-uno.kro.kr:8000/
