@@ -61,3 +61,7 @@
 ### Week 6
 ⚽️ 스탠다드<br/>
 http://likelion-11th-uno.kro.kr:8000/
+
+### Week 8
+🧸토이 프로젝트🧸<br/>
+https://github.com/hnnynh/Toy-Project-Server
