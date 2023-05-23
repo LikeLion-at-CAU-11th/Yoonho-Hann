@@ -6,6 +6,12 @@ from django.views.decorators.http import require_http_methods
 from .models import Post, Comment
 import json
 
+from .serializers import PostSerializer, CommentSerializer
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from rest_framework import status
+from django.http import Http404
+
 # from django.http import HttpResponse
 
 # Create your views here.
@@ -103,8 +109,7 @@ def get_post_all(request):
         'data' : post_json_all
     })
 
-@require_http_methods(["GET"])                              # 4주차 챌린지 미션 
-                                                            # RuntimeWarning 발생 -> USE_TZ = False로 해결 ?
+@require_http_methods(["GET"])                              # 4주차 챌린지 미션                                         # RuntimeWarning 발생 -> USE_TZ = False로 해결 ?
 def get_post_time(request):
     post_json_all = []
     post_list = Post.objects.filter(created_at__range=('2023-04-05 22:00:00', '2023-04-12 19:00:00'))
@@ -187,3 +192,52 @@ def create_comment(request):                                # 4주차 스탠다�
         'message': '댓글 생성 성공',
         'data': new_post_json
     })
+
+
+##################### DRF #####################
+
+class PostList(APIView):
+    def post(self, request, format=None):
+        serializer = PostSerializer(data = request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
+    def get(self, request, format=None):
+        posts = Post.objects.all()
+        serializer = PostSerializer(posts, many=True)   # 받아올 데이터가 복수개면 (many=True)
+        return Response(serializer.data)
+
+class PostDetail(APIView):
+    def get(self, request, id):
+        post = get_object_or_404(Post, pk=id)
+        serializer = PostSerializer(post)
+        return Response(serializer.data)
+    
+    def put(self, request, id):
+        post = get_object_or_404(Post, pk=id)           
+        serializer = PostSerializer(post, data=request.data)        # 수정할 post 지정하고 업데이트 -> post와 동일
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
+    def delete(self, request, id):
+        post = get_object_or_404(Post, pk=id)
+        post.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+    
+class CommentList(APIView):                              # 8주차 챌린지 미션
+    def post(self, request, id, format=None):
+        comment_post = Post.objects.get(post_id=id)
+        serializer = CommentSerializer(data = request.data)
+        if serializer.is_valid():
+            serializer.save(post=comment_post)
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    def get(self, request, id):
+        comment_all = Comment.objects.filter(post = id)
+        serializer = CommentSerializer(comment_all, many=True)
+        return Response(serializer.data)
