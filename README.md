@@ -86,3 +86,7 @@ Comment API View로 구현하기<br/>
 <img src="./task/week9_standard2.png"></a><br/>
 <img src="./task/week9_standard3.png"></a><br/>
 <img src="./task/week9_standard4.png"></a><br/>
+<br/>
+⚾️ **챌린지**<br/>
+Comment Class View로 구현하기<br/>
+<img src="./task/week9_challenge.png" height=500></a><br/><br/>

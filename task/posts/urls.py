@@ -32,6 +32,7 @@ from rest_framework.routers import DefaultRouter
 
 router = DefaultRouter()                                # - Router
 router.register('', views.PostViewSet)
+router.register(r'(?P<post>\d+)/comments', views.CommentViewSet)
 
 urlpatterns = [
     path('', include(router.urls)),

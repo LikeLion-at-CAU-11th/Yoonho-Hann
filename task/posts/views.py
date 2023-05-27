@@ -257,6 +257,7 @@ class PostListMixins(mixins.ListModelMixin, mixins.CreateModelMixin, generics.Ge
     
 
 # Mixins - 클래스 상속을 통해 새로운 속성이나 기능을 추가
+# 오버라이딩 이름 주의 !!
 class PostDetailMixins(mixins.RetrieveModelMixin, mixins.UpdateModelMixin, mixins.DestroyModelMixin, generics.GenericAPIView):
     queryset = Post.objects.all()
     serializer_class = PostSerializer
@@ -286,6 +287,11 @@ from rest_framework import viewsets
 class PostViewSet(viewsets.ModelViewSet):
     queryset = Post.objects.all()
     serializer_class = PostSerializer
+
+class CommentViewSet(viewsets.ModelViewSet):
+    queryset = Comment.objects.all()
+    serializer_class = CommentSerializer 
+    
 
 # post_list = PostViewSet.as_view({
 #    'get': 'list',
