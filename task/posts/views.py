@@ -241,3 +241,66 @@ class CommentList(APIView):                              # 8주차 챌린지 미
         comment_all = Comment.objects.filter(post = id)
         serializer = CommentSerializer(comment_all, many=True)
         return Response(serializer.data)
+    
+
+from rest_framework import mixins, generics
+
+class PostListMixins(mixins.ListModelMixin, mixins.CreateModelMixin, generics.GenericAPIView):
+    queryset = Post.objects.all()
+    serializer_class = PostSerializer
+
+    def get(self, request, *args, **kwargs):
+        return self.list(request)
+    
+    def post(self, request, *args, **kwargs):
+        return self.create(request, *args, **kwargs)
+    
+
+# Mixins - 클래스 상속을 통해 새로운 속성이나 기능을 추가
+# 오버라이딩 이름 주의 !!
+class PostDetailMixins(mixins.RetrieveModelMixin, mixins.UpdateModelMixin, mixins.DestroyModelMixin, generics.GenericAPIView):
+    queryset = Post.objects.all()
+    serializer_class = PostSerializer
+
+    def get(self, request, *args, **kwargs):
+        return self.retrieve(request, *args, **kwargs)  # 단일 객체 리턴
+    
+    def put(self, request, *args, **kwargs):
+        return self.update(request, *args, **kwargs)
+    
+    def delete(self, request, *args, **kwargs):
+        return self.destroy(request, *args, **kwargs)
+    
+# GenericAPIView - 한 번에 상속 받기
+class PostListGenericAPIView(generics.ListCreateAPIView):
+    queryset = Post.objects.all()
+    serializer_class = PostSerializer
+
+class PostDetailGenericAPIView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Post.objects.all()
+    serializer_class = PostSerializer
+
+
+# Viewset - 헬퍼클래스
+from rest_framework import viewsets
+
+class PostViewSet(viewsets.ModelViewSet):
+    queryset = Post.objects.all()
+    serializer_class = PostSerializer
+
+class CommentViewSet(viewsets.ModelViewSet):
+    queryset = Comment.objects.all()
+    serializer_class = CommentSerializer 
+    
+
+# post_list = PostViewSet.as_view({
+#    'get': 'list',
+#    'post': 'create'
+# })
+
+# post_detail_vs = PostViewSet.as_view({
+#    'get': 'retrieve',
+#    'put': 'update',
+#    'patch': 'partial_update',
+#    'delete': 'destroy'
+# })
