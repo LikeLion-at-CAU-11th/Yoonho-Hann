@@ -12,6 +12,8 @@ from rest_framework.response import Response
 from rest_framework import status
 from django.http import Http404
 
+from rest_framework.permissions import IsAuthenticatedOrReadOnly
+
 # from django.http import HttpResponse
 
 # Create your views here.
@@ -197,6 +199,8 @@ def create_comment(request):                                # 4주차 스탠다�
 ##################### DRF #####################
 
 class PostList(APIView):
+    permission_classes = [IsAuthenticatedOrReadOnly]    # 인가 구현
+
     def post(self, request, format=None):
         serializer = PostSerializer(data = request.data)
         if serializer.is_valid():

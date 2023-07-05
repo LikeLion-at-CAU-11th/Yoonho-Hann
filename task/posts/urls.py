@@ -35,5 +35,7 @@ router.register('', views.PostViewSet)
 router.register(r'(?P<post>\d+)/comments', views.CommentViewSet)
 
 urlpatterns = [
-    path('', include(router.urls)),
+    # path('', include(router.urls)),
+    path('', PostList.as_view()),           # 인가 추가 !
+    path('<int:id>/', PostDetail.as_view()),
 ]

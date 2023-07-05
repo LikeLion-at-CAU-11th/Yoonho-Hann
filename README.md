@@ -90,3 +90,11 @@ Comment API View로 구현하기<br/>
 ⚾️ **챌린지**<br/>
 Comment Class View로 구현하기<br/>
 <img src="./task/week9_challenge.png" height=500></a><br/><br/>
+
+### Week 10
+⚽️ **스탠다드**<br/>
+복습 및 주석 달기 ! <br/>
+<img src="./task/week10_standard_login.png"></a><br/>
+<img src="./task/week10_standard_logout.png"></a><br/>
+<img src="./task/week10_standard_auth.png"></a><br/>
+<br/>
