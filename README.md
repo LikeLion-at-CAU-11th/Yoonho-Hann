@@ -96,5 +96,6 @@ Comment Class View로 구현하기<br/>
 복습 및 주석 달기 ! <br/>
 <img src="./task/week10_standard_login.png"></a><br/>
 <img src="./task/week10_standard_logout.png"></a><br/>
-<img src="./task/week10_standard_auth.png"></a><br/>
 <br/>
+⚾️ **챌린지**<br/>
+<img src="./task/week10_challenge_logout.png"></a><br/>
