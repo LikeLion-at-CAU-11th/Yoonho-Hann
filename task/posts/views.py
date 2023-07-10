@@ -12,6 +12,9 @@ from rest_framework.response import Response
 from rest_framework import status
 from django.http import Http404
 
+from rest_framework.permissions import IsAuthenticatedOrReadOnly
+from config.permissions import IsWriterOrReadOnly
+
 # from django.http import HttpResponse
 
 # Create your views here.
@@ -197,6 +200,8 @@ def create_comment(request):                                # 4주차 스탠다�
 ##################### DRF #####################
 
 class PostList(APIView):
+    permission_classes = [IsAuthenticatedOrReadOnly]    # 인가 구현
+
     def post(self, request, format=None):
         serializer = PostSerializer(data = request.data)
         if serializer.is_valid():
@@ -210,13 +215,20 @@ class PostList(APIView):
         return Response(serializer.data)
 
 class PostDetail(APIView):
+    permission_classes = [IsWriterOrReadOnly]    # 인가
+
+    def get_object(self, id):                   # 권한 확인용
+        post = get_object_or_404(Post, pk=id)
+        self.check_object_permissions(self.request, post)
+        return post
+
     def get(self, request, id):
         post = get_object_or_404(Post, pk=id)
         serializer = PostSerializer(post)
         return Response(serializer.data)
     
     def put(self, request, id):
-        post = get_object_or_404(Post, pk=id)           
+        post = self.get_object(id)           # 권한 확인
         serializer = PostSerializer(post, data=request.data)        # 수정할 post 지정하고 업데이트 -> post와 동일
         if serializer.is_valid():
             serializer.save()
@@ -224,7 +236,7 @@ class PostDetail(APIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     
     def delete(self, request, id):
-        post = get_object_or_404(Post, pk=id)
+        post = self.get_object(id)          # 권한 확인
         post.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
     
