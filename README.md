@@ -39,23 +39,23 @@
 
 ### Week 3
 ⚽️ **스탠다드**<br/>
-<img src="./task/week3_TC_standard.png" height=500></a><br/><br/>
+<img src="./img/task/week3_TC_standard.png" height=500></a><br/><br/>
 ⚾️ **챌린지**<br/>
-<img src="./task/week3_TC_challenge.png" height=500></a><br/><br/>
+<img src="./img/task/week3_TC_challenge.png" height=500></a><br/><br/>
 
 
 ### Week 4
 ⚽️ **스탠다드**<br/>
-<img src="./task/week4_TC_standard.png" height=500></a><br/><br/>
+<img src="./img/task/week4_TC_standard.png" height=500></a><br/><br/>
 ⚾️ **챌린지**<br/>
-<img src="./task/week4_TC_challenge.png" height=500></a><br/><br/>
+<img src="./img/task/week4_TC_challenge.png" height=500></a><br/><br/>
 
 
 ### Week 5
 ⚽️ **스탠다드**<br/>
-<img src="./task/week5_TC_standard.png" height=500></a><br/><br/>
+<img src="./img/task/week5_TC_standard.png" height=500></a><br/><br/>
 ⚾️ **챌린지**<br/>
-<img src="./task/week5_TC_challenge.png" height=500></a><br/><br/>
+<img src="./img/task/week5_TC_challenge.png" height=500></a><br/><br/>
 
 
 ### Week 6
@@ -69,33 +69,44 @@ https://github.com/hnnynh/Toy-Project-Server<br/>
 ### Week 8
 ⚽️ **스탠다드**<br/>
 복습 및 주석 달기 ! <br/>
-<img src="./task/week8_standard1.png"></a><br/>
-<img src="./task/week8_standard2.png"></a><br/>
-<img src="./task/week8_standard3.png"></a><br/>
-<img src="./task/week8_standard4.png" height=500></a><br/>
+<img src="./img/task/week8_standard1.png"></a><br/>
+<img src="./img/task/week8_standard2.png"></a><br/>
+<img src="./img/task/week8_standard3.png"></a><br/>
+<img src="./img/task/week8_standard4.png" height=500></a><br/>
 <br/>
 ⚾️ **챌린지**<br/>
 Comment API View로 구현하기<br/>
 해당하는 post의 comment 볼 수 있도록 구현 ! <br/>
-<img src="./task/week8_challenge.png" height=500></a><br/><br/>
+<img src="./img/task/week8_challenge.png" height=500></a><br/><br/>
 
 ### Week 9
 ⚽️ **스탠다드**<br/>
 복습 및 주석 달기 ! <br/>
-<img src="./task/week9_standard1.png"></a><br/>
-<img src="./task/week9_standard2.png"></a><br/>
-<img src="./task/week9_standard3.png"></a><br/>
-<img src="./task/week9_standard4.png"></a><br/>
+<img src="./img/task/week9_standard1.png"></a><br/>
+<img src="./img/task/week9_standard2.png"></a><br/>
+<img src="./img/task/week9_standard3.png"></a><br/>
+<img src="./img/task/week9_standard4.png"></a><br/>
 <br/>
 ⚾️ **챌린지**<br/>
 Comment Class View로 구현하기<br/>
-<img src="./task/week9_challenge.png" height=500></a><br/><br/>
+<img src="./img/task/week9_challenge.png" height=500></a><br/><br/>
 
 ### Week 10
 ⚽️ **스탠다드**<br/>
 복습 및 주석 달기 ! <br/>
-<img src="./task/week10_standard_login.png"></a><br/>
-<img src="./task/week10_standard_logout.png"></a><br/>
+<img src="./img/task/week10_standard_login.png"></a><br/>
+<img src="./img/task/week10_standard_logout.png"></a><br/>
 <br/>
 ⚾️ **챌린지**<br/>
-<img src="./task/week10_challenge_logout.png"></a><br/>
+<img src="./img/task/week10_challenge_logout.png"></a><br/>
+
+### Week 11
+⚽️ **스탠다드**<br/>
+복습 ! <br/>
+<img src="./img/task/week11_standard.png"></a><br/>
+<br/>
+⚾️ **챌린지**<br/>
+구글 소셜로그인<br/>
+<img src="./img/task/week11_challenge.png"></a><br/>
+<img src="./img/task/week11_challenge_drive.png"></a><br/>
+

@@ -71,31 +71,25 @@ class AuthView(APIView):
         res.delete_cookie("access-token")
         res.delete_cookie("refresh-token")
         return res
-    
 
-# views.py
-from django.shortcuts import redirect
 
 # 구글 소셜로그인 변수 설정
 BASE_URL = 'http://localhost:8000/'
 GOOGLE_CALLBACK_URI = BASE_URL + 'accounts/google/callback/'
 
+from dj_rest_auth.registration.views import SocialLoginView
+from allauth.socialaccount.providers.oauth2.client import OAuth2Client
+from allauth.socialaccount.providers.google import views as google_view
+
+
+# 구글 소셜로그인 view
+class GoogleLogin(SocialLoginView):
+    adapter_class = google_view.GoogleOAuth2Adapter
+    callback_url = GOOGLE_CALLBACK_URI
+    client_class = OAuth2Client
+
+
 from django.shortcuts import redirect
-
-# 구글 로그인
-def google_login(request):
-    scope = "https://www.googleapis.com/auth/userinfo.email " + \
-            "https://www.googleapis.com/auth/drive.readonly"
-    client_id = "737086271828-t8r8521tpa6q02umeoefq1fa7atp6nup.apps.googleusercontent.com"
-    return redirect(f"https://accounts.google.com/o/oauth2/v2/auth?client_id={client_id}&response_type=code&redirect_uri={GOOGLE_CALLBACK_URI}&scope={scope}")
-
-
-# access token & 이메일 요청 -> 회원가입/로그인 & jwt 발급
-from json import JSONDecodeError
-from django.http import JsonResponse
-import requests
-from .models import *
-from allauth.socialaccount.models import SocialAccount
 
 from pathlib import Path
 import os
@@ -117,6 +111,24 @@ def get_secret(setting, secrets=secrets):
 
 CLIENT_ID = get_secret("GOOGLE_CLIENT_ID")
 CLIENT_SECRET = get_secret("GOOGLE_CLIENT_SECRET")
+
+from django.shortcuts import redirect
+
+# 구글 로그인
+def google_login(request):
+    scope = "https://www.googleapis.com/auth/userinfo.email " + \
+            "https://www.googleapis.com/auth/drive.readonly"
+    client_id = CLIENT_ID
+    return redirect(f"https://accounts.google.com/o/oauth2/v2/auth?client_id={client_id}&response_type=code&redirect_uri={GOOGLE_CALLBACK_URI}&scope={scope}")
+
+
+# access token & 이메일 요청 -> 회원가입/로그인 & jwt 발급
+from json import JSONDecodeError
+from django.http import JsonResponse
+import requests
+from .models import *
+from allauth.socialaccount.models import SocialAccount
+
 
 def google_callback(request):
     # access token
@@ -162,7 +174,7 @@ def google_callback(request):
     try:
         # 전달받은 이메일로 등록된 유저가 있는지 탐색
         user = Member.objects.get(email=email)
-
+        
         # FK로 연결되어 있는 socialaccount 테이블에서 해당 이메일의 유저가 있는지 확인
         social_user = SocialAccount.objects.get(user=user)
 
@@ -170,9 +182,9 @@ def google_callback(request):
         if social_user.provider != 'google':
             return JsonResponse({'err_msg': 'no matching social type'}, status=status.HTTP_400_BAD_REQUEST)
 
-        # 이미 Google로 제대로 가입된 유저 => 로그인 & 해당 우저의 jwt 발급
-        data = {'access_token': access_token, 'code': code}
-        accept = requests.post(f"{BASE_URL}api/user/google/login/finish/", data=data)
+        # 이미 Google로 제대로 가입된 유저 => 로그인 & 해당 유저의 jwt 발급
+        data = {'access_token': token_req_json.get('id_token'), 'code': code}
+        accept = requests.post(f"{BASE_URL}accounts/google/login/finish/", data=data)
         accept_status = accept.status_code
 
         # 뭔가 중간에 문제가 생기면 에러
@@ -185,10 +197,10 @@ def google_callback(request):
 
     except Member.DoesNotExist:
         # 전달받은 이메일로 기존에 가입된 유저가 아예 없으면 => 새로 회원가입 & 해당 유저의 jwt 발급
-        data = {'access_token': access_token, 'code': code}
-        accept = requests.post(f"{BASE_URL}api/user/google/login/finish/", data=data)
+        data = {'access_token': token_req_json.get('id_token'), 'code': code}       ##### id_token 전달
+        accept = requests.post(f"{BASE_URL}accounts/google/login/finish/", data=data)               # 수정
         accept_status = accept.status_code
-
+        
         # 뭔가 중간에 문제가 생기면 에러
         if accept_status != 200:
             return JsonResponse({'err_msg': 'failed to signup'}, status=accept_status)
