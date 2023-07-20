@@ -39,16 +39,16 @@
 
 ### Week 3
 ⚽️ **스탠다드**<br/>
-<img src="./img/task/week3_TC_standard.png" height=500></a><br/><br/>
+<img src="./task/img/week3_TC_standard.png" height=500></a><br/><br/>
 ⚾️ **챌린지**<br/>
-<img src="./img/task/week3_TC_challenge.png" height=500></a><br/><br/>
+<img src="./task/img/week3_TC_challenge.png" height=500></a><br/><br/>
 
 
 ### Week 4
 ⚽️ **스탠다드**<br/>
-<img src="./img/task/week4_TC_standard.png" height=500></a><br/><br/>
+<img src="./task/img/week4_TC_standard.png" height=500></a><br/><br/>
 ⚾️ **챌린지**<br/>
-<img src="./img/task/week4_TC_challenge.png" height=500></a><br/><br/>
+<img src="./task/img/week4_TC_challenge.png" height=500></a><br/><br/>
 
 
 ### Week 5
