@@ -111,15 +111,18 @@ def get_secret(setting, secrets=secrets):
 
 CLIENT_ID = get_secret("GOOGLE_CLIENT_ID")
 CLIENT_SECRET = get_secret("GOOGLE_CLIENT_SECRET")
+GOOGLE_SCOPE_USERINFO = get_secret("GOOGLE_SCOPE_USERINFO");
+GOOGLE_SCOPE_DRIVE = get_secret("GOOGLE_SCOPE_DRIVE");
+GOOGLE_REDIRECT = get_secret("GOOGLE_REDIRECT");
 
 from django.shortcuts import redirect
 
 # 구글 로그인
 def google_login(request):
-    scope = "https://www.googleapis.com/auth/userinfo.email " + \
-            "https://www.googleapis.com/auth/drive.readonly"
+    scope = GOOGLE_SCOPE_USERINFO + \
+            GOOGLE_SCOPE_DRIVE
     client_id = CLIENT_ID
-    return redirect(f"https://accounts.google.com/o/oauth2/v2/auth?client_id={client_id}&response_type=code&redirect_uri={GOOGLE_CALLBACK_URI}&scope={scope}")
+    return redirect(f"{GOOGLE_REDIRECT}?client_id={client_id}&response_type=code&redirect_uri={GOOGLE_CALLBACK_URI}&scope={scope}")
 
 
 # access token & 이메일 요청 -> 회원가입/로그인 & jwt 발급

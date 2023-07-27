@@ -110,3 +110,10 @@ Comment Class View로 구현하기<br/>
 <img src="./task/img/week11_challenge.png"></a><br/>
 <img src="./task/img/week11_challenge_drive.png"></a><br/>
 
+### Week 12
+⚾️ **RDS & S3**<br/>
+S3에 이미지 업로드<br/>
+<img src="./task/img/week12_unauthorized.png"></a><br/>
+로그인 전에 post 업로드 시도<br/>
+<img src="./task/img/week12_success.png"></a><br/>
+<img src="./task/img/week12_s3.png"></a><br/>
